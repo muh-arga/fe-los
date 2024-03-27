@@ -1,0 +1,126 @@
+#main {
+  min-height: 100vh;
+}
+
+#hero {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-image: url("../img/hero.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 0px 0px 0px 300px;
+}
+
+.headedr-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.header-wrapper .dt-search {
+  display: flex;
+  flex-direction: row;
+}
+
+.header-wrapper .dt-length {
+  display: flex;
+  flex-direction: row;
+}
+
+.section {
+  height: 100% !important;
+}
+
+.section .card {
+  border: none !important;
+  min-height: 100% !important;
+  margin-bottom: 0;
+}
+
+.section .card input.form-control,
+.section .card select.form-select {
+  height: 56px !important;
+  border-radius: 8px !important;
+  padding: 16px;
+}
+
+.section .card select.form-select.sm {
+  height: 31px !important;
+}
+
+.los {
+  height: 160px;
+  width: 160px;
+  border-radius: 50%;
+  background-color: rgba(4, 91, 243, 0.4);
+}
+
+.los .result {
+  height: 140px;
+  width: 140px;
+  border-radius: 50%;
+  background-color: #377dff;
+  font-size: 64px;
+  color: #fff;
+}
+
+span.los-label {
+  font-size: 32px;
+  color: #377dff;
+}
+
+.los.detail {
+  height: 120px;
+  width: 120px;
+  border-radius: 50%;
+  background-color: rgba(4, 91, 243, 0.4);
+}
+
+.los.detail .result {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  background-color: #377dff;
+  font-size: 38px;
+  color: #fff;
+}
+
+.detail p {
+  color: #8f8f8f;
+  font-weight: 600;
+}
+
+.btn-success {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #38cb89 !important;
+  --bs-btn-border-color: #38cb89 !important;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #2da06c !important;
+  --bs-btn-hover-border-color: #2da06c !important;
+  --bs-btn-focus-shadow-rgb: 60, 153, 110;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #2da06c !important;
+  --bs-btn-active-border-color: #2da06c !important;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: #38cb89 !important;
+  --bs-btn-disabled-border-color: #38cb89 !important;
+}
+
+.bg-success-light {
+  color: #fff !important;
+  background-color: #38cb89 !important;
+}
+
+table.table.table-bordered thead tr {
+  border-bottom: 20px solid #F5F6FA;
+}
+
+table.table.table-bordered thead tr th {
+  color: #6F767E !important;
+  font-weight: 500;
+}
+
+table.table.table-bordered tr {
+  border: 3px solid #F5F6FA;
+}
