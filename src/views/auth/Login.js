@@ -1,7 +1,38 @@
-import React from "react";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import { baseURL } from "../../routes/Config";
+import LoginError from "../../components/LoginError";
 
 const Login = () => {
+  const [error, setError] = useState(false);
+  const [data, setData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    setData({
+      ...data,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await axios
+      .post(`${baseURL}/api/auth/login`, data)
+      .then((res) => {
+        const { data } = res;
+        sessionStorage.setItem("token", data.accessToken);
+        window.location.href = "/";
+      })
+      .catch((err) => {
+        console.log(err);
+        setError(err.response.data.message);
+      });
+  };
+
   return (
     <div>
       <div className="row w-100" style={{ height: "100vh" }}>
@@ -17,11 +48,14 @@ const Login = () => {
 
           <div className="header mt-4">
             <h3 className="fw-bold">Login</h3>
-            <p className="fw-medium">Masukkan email dan password untuk login!</p>
+            <p className="fw-medium">
+              Masukkan email dan password untuk login!
+            </p>
           </div>
 
           <div className="form">
             <form className="mt-5">
+              {error ? <LoginError message={error} /> : ""}
               <div className="form-group">
                 <label className="form-label fw-medium">Email</label>
                 <input
@@ -30,6 +64,7 @@ const Login = () => {
                   placeholder="Email"
                   aria-label="Email"
                   name="email"
+                  onChange={handleChange}
                 />
               </div>
 
@@ -41,17 +76,18 @@ const Login = () => {
                   placeholder="Password"
                   aria-label="Password"
                   name="password"
+                  onChange={handleChange}
                 />
               </div>
 
               <div className="form-group mt-3">
-                <NavLink
-                  to="/"
+                <button
                   type="button"
                   className="btn btn-primary w-100 fw-bold"
+                  onClick={handleSubmit}
                 >
                   Login
-                </NavLink>
+                </button>
               </div>
             </form>
           </div>

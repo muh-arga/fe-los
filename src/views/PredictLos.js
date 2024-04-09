@@ -1,8 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AppLayout from "../layouts/AppLayout";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
+import axios from "axios";
+import { baseURL } from "../routes/Config";
 
 const PredictLos = () => {
+  const [data, setData] = useState({});
+  const token = sessionStorage.getItem("token");
+
+  const { id } = useParams();
+
+  const handleChange = (e) => {
+    setData({
+      ...data,
+      [e.target.name]: parseFloat(e.target.value),
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    sessionStorage.setItem("labs", JSON.stringify({ ...data, patientId: id }));
+    window.location.href = "/predict-result";
+  };
+
   return (
     <AppLayout>
       <div className="page-heading">
@@ -16,7 +36,7 @@ const PredictLos = () => {
       </div>
       <section className="section">
         <div className="card text-start py-4 px-5">
-          <form action="">
+          <form onSubmit={handleSubmit}>
             <div className="row mb-4">
               <div className="form-group col-md-3 col-sm-4 col-6">
                 <label className="form-label">NumProcEvents</label>
@@ -24,8 +44,10 @@ const PredictLos = () => {
                   type="number"
                   className="form-control"
                   placeholder=""
-                  aria-label="NumprocEvents"
-                  name="numprocEvents"
+                  aria-label="NumProcEvents"
+                  name="numProcEvents"
+                  onChange={handleChange}
+                  required
                 />
               </div>
               <div className="form-group col-md-3 col-sm-4 col-6">
@@ -36,26 +58,32 @@ const PredictLos = () => {
                   placeholder=""
                   aria-label="NumDiagnosis"
                   name="numDiagnosis"
+                  onChange={handleChange}
+                  required
                 />
               </div>
               <div className="form-group col-md-3 col-sm-4 col-6">
-                <label className="form-label">NumMicrolabs</label>
+                <label className="form-label">NumMicroLabs</label>
                 <input
                   type="number"
                   className="form-control"
                   placeholder=""
-                  aria-label="NumMicrolabs"
-                  name="numMicrolabs"
+                  aria-label="NumMicroLabs"
+                  name="numMicroLabs"
+                  onChange={handleChange}
+                  required
                 />
               </div>
               <div className="form-group col-md-3 col-sm-4 col-6">
-                <label className="form-label">NumTransfer</label>
+                <label className="form-label">NumTransfers</label>
                 <input
                   type="number"
                   className="form-control"
                   placeholder=""
-                  aria-label="NumTransfer"
-                  name="numTransfer"
+                  aria-label="NumTransfers"
+                  name="numTransfers"
+                  onChange={handleChange}
+                  required
                 />
               </div>
             </div>
@@ -69,6 +97,8 @@ const PredictLos = () => {
                   placeholder=""
                   aria-label="NumNotes"
                   name="numNotes"
+                  onChange={handleChange}
+                  required
                 />
               </div>
               <div className="form-group col-md-3 col-sm-4 col-6">
@@ -79,6 +109,8 @@ const PredictLos = () => {
                   placeholder=""
                   aria-label="TotalNumInteract"
                   name="totalNumInteract"
+                  onChange={handleChange}
+                  required
                 />
               </div>
               <div className="form-group col-md-3 col-sm-4 col-6">
@@ -88,7 +120,9 @@ const PredictLos = () => {
                   className="form-control"
                   placeholder=""
                   aria-label="NumInput"
-                  name=""
+                  name="numInput"
+                  onChange={handleChange}
+                  required
                 />
               </div>
               <div className="form-group col-md-3 col-sm-4 col-6">
@@ -99,6 +133,8 @@ const PredictLos = () => {
                   placeholder=""
                   aria-label="NumRX"
                   name="numRX"
+                  onChange={handleChange}
+                  required
                 />
               </div>
             </div>
@@ -112,6 +148,8 @@ const PredictLos = () => {
                   placeholder=""
                   aria-label="NumLabs"
                   name="numLabs"
+                  onChange={handleChange}
+                  required
                 />
               </div>
               <div className="form-group col-md-3 col-sm-4 col-6">
@@ -122,6 +160,8 @@ const PredictLos = () => {
                   placeholder=""
                   aria-label="NumProcs"
                   name="numProcs"
+                  onChange={handleChange}
+                  required
                 />
               </div>
               <div className="form-group col-md-3 col-sm-4 col-6">
@@ -132,6 +172,8 @@ const PredictLos = () => {
                   placeholder=""
                   aria-label="NumOutput"
                   name="numOutput"
+                  onChange={handleChange}
+                  required
                 />
               </div>
               <div className="form-group col-md-3 col-sm-4 col-6">
@@ -142,6 +184,8 @@ const PredictLos = () => {
                   placeholder=""
                   aria-label="NumCharEvents"
                   name="numCharEvents"
+                  onChange={handleChange}
+                  required
                 />
               </div>
             </div>
@@ -155,6 +199,8 @@ const PredictLos = () => {
                   placeholder=""
                   aria-label="NumCallouts"
                   name="numCallouts"
+                  onChange={handleChange}
+                  required
                 />
               </div>
               <div className="form-group col-md-3 col-sm-4 col-6">
@@ -165,12 +211,16 @@ const PredictLos = () => {
                   placeholder=""
                   aria-label="NumCPevents"
                   name="numCPevents"
+                  onChange={handleChange}
+                  required
                 />
               </div>
             </div>
 
             <div className="row justify-content-center mt-5">
-              <NavLink to="/predict-result" className="btn btn-primary col-md-4 col-6">Simpan</NavLink>
+              <button type="submit" className="btn btn-primary col-md-4 col-6">
+                Simpan
+              </button>
             </div>
           </form>
         </div>
