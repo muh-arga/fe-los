@@ -10,7 +10,7 @@ export const Sidebar = () => {
             <div className="logo px-4">
               <a href="index.html" className="d-flex align-items-center text-decoration-none text-dark">
                 <img
-                  src="assets/img/logo.png"
+                  src="/assets/img/logo.png"
                   alt="Logo"
                   style={{ width:"50px", height:"50px"}}
                 />
