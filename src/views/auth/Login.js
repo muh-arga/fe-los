@@ -20,6 +20,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(false);
     await axios
       .post(`${baseURL}/api/auth/login`, data)
       .then((res) => {
@@ -29,7 +30,7 @@ const Login = () => {
       })
       .catch((err) => {
         console.log(err);
-        setError(err.response.data.message);
+        setError(err.response?.data.message || "Something went wrong!");
       });
   };
 

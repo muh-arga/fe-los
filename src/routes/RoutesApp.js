@@ -11,10 +11,12 @@ import { baseURL } from "./Config";
 import Login from "../views/auth/Login";
 import Dashboard from "../views/Dashboard";
 import AddPatient from "../views/AddPatient";
+import EditPatient from "../views/EditPatient";
 import PredictLos from "../views/PredictLos";
 import PredictResult from "../views/PredictResult";
 import History from "../views/History";
 import DetailLos from "../views/DetailLos";
+import Rooms from "../views/Rooms";
 
 const RoutesApp = () => {
   const [data, setData] = useState({
@@ -60,10 +62,12 @@ const RoutesApp = () => {
       <Routes>
         {getProtectedRoute("/", <Dashboard />, ["admin"])}
         {getProtectedRoute("/add-patient", <AddPatient />, ["admin"])}
+        {getProtectedRoute("/edit-patient/:id", <EditPatient />, ["admin"])}
         {getProtectedRoute("/predict/:id", <PredictLos />, ["admin"])}
         {getProtectedRoute("/predict-result", <PredictResult />, ["admin"])}
         {getProtectedRoute("/history/:id", <History />, ["admin"])}
         {getProtectedRoute("/detail-los/:id", <DetailLos />, ["admin"])}
+        {getProtectedRoute("/rooms", <Rooms />, ["admin"])}
         <Route path="/login" element={<Login />} />
       </Routes>
     </Router>

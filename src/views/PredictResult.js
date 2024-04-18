@@ -3,19 +3,61 @@ import AppLayout from "../layouts/AppLayout";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 import { baseURL } from "../routes/Config";
+import Swal from "sweetalert2";
+import TokenExpired from "../components/TokenExpired";
 
 const PredictResult = () => {
-  const [data, setData] = useState({});
   const token = sessionStorage.getItem("token");
 
   const labs = JSON.parse(sessionStorage.getItem("labs"));
 
+  const [data, setData] = useState({});
+  const [rooms, setRooms] = useState([]);
+  const [beds, setBeds] = useState([]);
+
   const [los, setLos] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const estimates = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     setLos(estimates[Math.floor(Math.random() * estimates.length)]);
+
+    axios
+      .get(`${baseURL}/api/rooms?status=0`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setRooms(res.data.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        if(err.response.status === 401) {
+          TokenExpired()
+        }
+        setLoading(false);
+      });
   }, [token]);
+
+  const handleRoomChange = (e) => {
+    axios
+      .get(`${baseURL}/api/bed/${e.target.value}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setBeds(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        if(err.response.status === 401) {
+          TokenExpired()
+        }
+      });
+  };
 
   const handleChange = (e) => {
     setData({
@@ -26,27 +68,48 @@ const PredictResult = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post(
-        `${baseURL}/api/los`,
-        {
-          ...labs,
-          ...data,
-          estimate: los,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then((res) => {
-        sessionStorage.removeItem("labs");
-        window.location.href = `/history/${labs.patientId}`;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    Swal.fire({
+      title: "Simpan Data Pasien?",
+      text: "Apakah anda yakin ingin menyimpan data pasien ini?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Ya, Simpan!",
+      cancelButtonText: "Batal",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .post(
+            `${baseURL}/api/los`,
+            {
+              ...labs,
+              ...data,
+              estimate: los,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .then((res) => {
+            sessionStorage.removeItem("labs");
+            Swal.fire("Berhasil!", "Data berhasil disimpan.", "success").then(
+              () => {
+                window.location.href = `/history/${labs.patientId}`;
+              }
+            );
+          })
+          .catch((err) => {
+            console.log(err);
+            if(err.response.status === 401) {
+              window.location.reload();
+            }
+            Swal.fire("Gagal!", "Gagal menyimpan data.", "error").then(() => {
+              window.location.reload();
+            });
+          });
+      }
+    });
   };
 
   return (
@@ -102,14 +165,16 @@ const PredictResult = () => {
                   <select
                     name="room"
                     className="form-select sm text-dark py-0"
-                    onChange={handleChange}
+                    onChange={handleRoomChange}
                     defaultValue=""
                     required
                   >
                     <option value="">--Ruangan--</option>
-                    <option value="R1">R1</option>
-                    <option value="R2">R2</option>
-                    <option value="R4">R4</option>
+                    {rooms.map((room, index) => (
+                      <option key={index} value={room.room}>
+                        {room.room}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
@@ -120,23 +185,24 @@ const PredictResult = () => {
                 </div>
                 <div className="col-5">
                   <select
-                    name="bed"
+                    name="bedId"
                     className="form-select sm py-0"
                     onChange={handleChange}
                     defaultValue=""
                     required
                   >
                     <option value="">--Tempat Tidur--</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
+                    {beds.map((bed, index) => (
+                      <option key={index} value={bed.id}>
+                        {bed.bed}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
               <div className="d-flex flex-row mt-4">
                 <NavLink
-                  to="/predict"
+                  to={`/predict/${labs.patientId}`}
                   className="btn btn-outline-danger col-6 me-4"
                 >
                   Ulang

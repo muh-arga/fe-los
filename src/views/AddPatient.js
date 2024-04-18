@@ -3,6 +3,7 @@ import AppLayout from "../layouts/AppLayout";
 import { NavLink, redirect } from "react-router-dom";
 import axios from "axios";
 import { baseURL } from "../routes/Config";
+import TokenExpired from "../components/TokenExpired";
 
 const AddPatient = () => {
   const [data, setData] = useState({});
@@ -35,7 +36,9 @@ const AddPatient = () => {
       })
       .catch((err) => {
         console.log(err);
-        console.log(data)
+        if(err.response.status === 401) {
+          TokenExpired()
+        }
       });
   };
 
@@ -124,7 +127,7 @@ const AddPatient = () => {
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="Tempat Lahir"
+                  placeholder="Alamat"
                   aria-label="Tempat_Lahir"
                   name="address"
                   onChange={handleChange}

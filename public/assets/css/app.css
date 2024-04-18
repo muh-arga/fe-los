@@ -18633,18 +18633,18 @@ body .bi:before,
 .sidebar-wrapper .menu .sidebar-item.active.has-sub .sidebar-link:after {
   content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9" style="fill:none;stroke:white;stroke-width:1"></polyline></svg>');
 }
-.sidebar-wrapper .menu .sidebar-item.active > .sidebar-link {
+.sidebar-wrapper .menu .sidebar-item > .sidebar-link.active {
   background-color: #377DFF;
 }
-.sidebar-wrapper .menu .sidebar-item.active > .sidebar-link span {
+.sidebar-wrapper .menu .sidebar-item > .sidebar-link.active span {
   color: #fff;
 }
-.sidebar-wrapper .menu .sidebar-item.active > .sidebar-link svg,
-.sidebar-wrapper .menu .sidebar-item.active > .sidebar-link i {
+.sidebar-wrapper .menu .sidebar-item > .sidebar-link.active svg,
+.sidebar-wrapper .menu .sidebar-item > .sidebar-link.active i {
   fill: #fff;
   color: #fff;
 }
-.sidebar-wrapper .menu .sidebar-item.active > .sidebar-link.has-sub:after {
+.sidebar-wrapper .menu .sidebar-item > .sidebar-link.active.has-sub:after {
   content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9" style="fill:none;stroke:white;stroke-width:1"></polyline></svg>');
 }
 .sidebar-wrapper .menu .submenu {

@@ -69,6 +69,10 @@ span.los-label {
   color: #377dff;
 }
 
+span.los-label.actual {
+  color: #38CB89;
+}
+
 .los.detail {
   height: 120px;
   width: 120px;
@@ -83,6 +87,14 @@ span.los-label {
   background-color: #377dff;
   font-size: 38px;
   color: #fff;
+}
+
+.los.detail.actual {
+  background-color: rgba(56, 203, 137, 0.3);
+}
+
+.los.detail.actual .result {
+  background-color: #38CB89;
 }
 
 .detail p {
@@ -123,4 +135,9 @@ table.table.table-bordered thead tr th {
 
 table.table.table-bordered tr {
   border: 3px solid #F5F6FA;
+}
+
+.section .filter .card select.form-select {
+  height: 40px !important;
+  padding-right: 30px !important;
 }
