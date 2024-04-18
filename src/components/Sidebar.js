@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import Swal from "sweetalert2";
+import CustomNavLink from "./CustomNavLink";
 
 export const Sidebar = () => {
   const onLogout = () => {
@@ -43,16 +44,16 @@ export const Sidebar = () => {
           <ul className="menu mt-4">
             <li className="sidebar-title text-start mt-0">Menu</li>
             <li className="sidebar-item">
-              <NavLink to="/" className="sidebar-link">
+              <CustomNavLink to="/" paths={["/", "/history", "/detail-los/:id", "/predict/:id", "/predict-result", "/add-patient","/edit-patient/:id"]}>
                 <i className="bi bi-grid-fill"></i>
                 <span>Dashboard</span>
-              </NavLink>
+              </CustomNavLink>
             </li>
             <li className="sidebar-item">
-              <NavLink to="/rooms" className="sidebar-link">
+              <CustomNavLink to="/rooms" paths={["/rooms"]}>
                 <i className="bi bi-box-fill"></i>
                 <span>Kamar</span>
-              </NavLink>
+              </CustomNavLink>
             </li>
           </ul>
         </div>

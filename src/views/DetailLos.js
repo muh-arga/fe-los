@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useParams, useNavigate } from "react-router-dom";
 import AppLayout from "../layouts/AppLayout";
 import axios from "axios";
 import { baseURL } from "../routes/Config";
@@ -12,6 +12,12 @@ const DetailLos = () => {
 
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
+
+  const navigate = useNavigate();
+
+  const goBack = () => {
+    navigate(-1);
+  }
 
   useEffect(() => {
     axios
@@ -236,12 +242,12 @@ const DetailLos = () => {
                 </div>
 
                 <div className="d-flex justify-content-center flex-row mt-4">
-                  <NavLink
-                    to={`/history/${data.patient.id}`}
+                  <button
+                    onClick={goBack}
                     className="col-6 btn btn-primary"
                   >
                     Kembali
-                  </NavLink>
+                  </button>
                 </div>
               </div>
             </div>
