@@ -39,13 +39,14 @@ const PredictLos = () => {
           <form onSubmit={handleSubmit}>
             <div className="row mb-4">
               <div className="form-group col-md-3 col-sm-4 col-6">
-                <label className="form-label">NumProcEvents</label>
+                <label className="form-label">NumTransfers</label>
                 <input
                   type="number"
+                  step="0.01"
                   className="form-control"
                   placeholder=""
-                  aria-label="NumProcEvents"
-                  name="numProcEvents"
+                  aria-label="NumTransfers"
+                  name="NumTransfers"
                   onChange={handleChange}
                   required
                 />
@@ -54,85 +55,37 @@ const PredictLos = () => {
                 <label className="form-label">NumDiagnosis</label>
                 <input
                   type="number"
+                  step="0.01"
                   className="form-control"
                   placeholder=""
                   aria-label="NumDiagnosis"
-                  name="numDiagnosis"
+                  name="NumDiagnosis"
                   onChange={handleChange}
                   required
                 />
               </div>
-              <div className="form-group col-md-3 col-sm-4 col-6">
-                <label className="form-label">NumMicroLabs</label>
-                <input
-                  type="number"
-                  className="form-control"
-                  placeholder=""
-                  aria-label="NumMicroLabs"
-                  name="numMicroLabs"
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div className="form-group col-md-3 col-sm-4 col-6">
-                <label className="form-label">NumTransfers</label>
-                <input
-                  type="number"
-                  className="form-control"
-                  placeholder=""
-                  aria-label="NumTransfers"
-                  name="numTransfers"
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="row mb-4">
               <div className="form-group col-md-3 col-sm-4 col-6">
                 <label className="form-label">NumNotes</label>
                 <input
                   type="number"
+                  step="0.01"
                   className="form-control"
                   placeholder=""
                   aria-label="NumNotes"
-                  name="numNotes"
+                  name="NumNotes"
                   onChange={handleChange}
                   required
                 />
               </div>
               <div className="form-group col-md-3 col-sm-4 col-6">
-                <label className="form-label">TotalNumInteract</label>
+                <label className="form-label">NumLabs</label>
                 <input
                   type="number"
+                  step="0.01"
                   className="form-control"
                   placeholder=""
-                  aria-label="TotalNumInteract"
-                  name="totalNumInteract"
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div className="form-group col-md-3 col-sm-4 col-6">
-                <label className="form-label">NumInput</label>
-                <input
-                  type="number"
-                  className="form-control"
-                  placeholder=""
-                  aria-label="NumInput"
-                  name="numInput"
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div className="form-group col-md-3 col-sm-4 col-6">
-                <label className="form-label">NumRX</label>
-                <input
-                  type="number"
-                  className="form-control"
-                  placeholder=""
-                  aria-label="NumRX"
-                  name="numRX"
+                  aria-label="NumLabs"
+                  name="NumLabs"
                   onChange={handleChange}
                   required
                 />
@@ -141,13 +94,27 @@ const PredictLos = () => {
 
             <div className="row mb-4">
               <div className="form-group col-md-3 col-sm-4 col-6">
-                <label className="form-label">NumLabs</label>
+                <label className="form-label">TotalNumInteract</label>
                 <input
                   type="number"
+                  step="0.01"
                   className="form-control"
                   placeholder=""
-                  aria-label="NumLabs"
-                  name="numLabs"
+                  aria-label="TotalNumInteract"
+                  name="TotalNumInteract"
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="form-group col-md-3 col-sm-4 col-6">
+                <label className="form-label">NumChartEvents</label>
+                <input
+                  type="number"
+                  step="0.01"
+                  className="form-control"
+                  placeholder=""
+                  aria-label="NumChartEvents"
+                  name="NumChartEvents"
                   onChange={handleChange}
                   required
                 />
@@ -156,10 +123,53 @@ const PredictLos = () => {
                 <label className="form-label">NumProcs</label>
                 <input
                   type="number"
+                  step="0.01"
                   className="form-control"
                   placeholder=""
                   aria-label="NumProcs"
-                  name="numProcs"
+                  name="NumProcs"
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="form-group col-md-3 col-sm-4 col-6">
+                <label className="form-label">NumMicroLabs</label>
+                <input
+                  type="number"
+                  step="0.01"
+                  className="form-control"
+                  placeholder=""
+                  aria-label="NumMicroLabs"
+                  name="NumMicroLabs"
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="row mb-4">
+              <div className="form-group col-md-3 col-sm-4 col-6">
+                <label className="form-label">NumInput</label>
+                <input
+                  type="number"
+                  step="0.01"
+                  className="form-control"
+                  placeholder=""
+                  aria-label="NumInput"
+                  name="NumInput"
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="form-group col-md-3 col-sm-4 col-6">
+                <label className="form-label">NumRx</label>
+                <input
+                  type="number"
+                  step="0.01"
+                  className="form-control"
+                  placeholder=""
+                  aria-label="NumRx"
+                  name="NumRx"
                   onChange={handleChange}
                   required
                 />
@@ -168,22 +178,24 @@ const PredictLos = () => {
                 <label className="form-label">NumOutput</label>
                 <input
                   type="number"
+                  step="0.01"
                   className="form-control"
                   placeholder=""
                   aria-label="NumOutput"
-                  name="numOutput"
+                  name="NumOutput"
                   onChange={handleChange}
                   required
                 />
               </div>
               <div className="form-group col-md-3 col-sm-4 col-6">
-                <label className="form-label">NumCharEvents</label>
+                <label className="form-label">NumCPTevents</label>
                 <input
                   type="number"
+                  step="0.01"
                   className="form-control"
                   placeholder=""
-                  aria-label="NumCharEvents"
-                  name="numCharEvents"
+                  aria-label="NumCPTevents"
+                  name="NumCPTevents"
                   onChange={handleChange}
                   required
                 />
@@ -195,22 +207,11 @@ const PredictLos = () => {
                 <label className="form-label">NumCallouts</label>
                 <input
                   type="number"
+                  step="0.01"
                   className="form-control"
                   placeholder=""
                   aria-label="NumCallouts"
-                  name="numCallouts"
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div className="form-group col-md-3 col-sm-4 col-6">
-                <label className="form-label">NumCPevents</label>
-                <input
-                  type="number"
-                  className="form-control"
-                  placeholder=""
-                  aria-label="NumCPevents"
-                  name="numCPevents"
+                  name="NumCallouts"
                   onChange={handleChange}
                   required
                 />

@@ -4,6 +4,7 @@ import { NavLink, redirect } from "react-router-dom";
 import axios from "axios";
 import { baseURL } from "../routes/Config";
 import TokenExpired from "../components/TokenExpired";
+import Swal from "sweetalert2";
 
 const AddPatient = () => {
   const [data, setData] = useState({});
@@ -18,26 +19,37 @@ const AddPatient = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     axios
-      .post(`${baseURL}/api/patients`, {
-        name: data.name,
-        nik: data.nik,
-        gender: data.gender ?? "Laki-Laki",
-        birthPlace: data.birth_place,
-        birthDate: data.birth_date,
-        address: data.address,
-      }, {
-        headers: {
-          Authorization: `Bearer ${token}`,
+      .post(
+        `${baseURL}/api/patients`,
+        {
+          name: data.name,
+          nik: data.nik,
+          gender: data.gender ?? "Laki-Laki",
+          birthPlace: data.birth_place,
+          birthDate: data.birth_date,
+          address: data.address,
         },
-      })
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => {
-        window.location.href = `/predict/${res.data.data.id}`;
+        Swal.fire({
+          icon: "success",
+          title: "Berhasil",
+          text: "Data pasien berhasil ditambahkan",
+        }).then(() => {
+          window.location.href = `/predict/${res.data.data.id}`;
+        });
       })
       .catch((err) => {
         console.log(err);
-        if(err.response.status === 401) {
-          TokenExpired()
+        if (err.response.status === 401) {
+          TokenExpired();
         }
       });
   };

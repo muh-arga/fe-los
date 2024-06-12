@@ -111,19 +111,19 @@ const DetailLos = () => {
                   </div>
 
                   <div className="row col-4">
-                    <div className="col-6">TotalNumInteract</div>
+                    <div className="col-6">NumTransfers</div>
                     <div className="col-1" style={{ width: "fit-content" }}>
                       :
                     </div>
-                    <div className="col-4">{data.totalNumInteract}</div>
+                    <div className="col-4">{data.NumTransfers}</div>
                   </div>
 
                   <div className="row col-4">
-                    <div className="col-6">NumTransfer</div>
+                    <div className="col-6">NumDiagnosis</div>
                     <div className="col-1" style={{ width: "fit-content" }}>
                       :
                     </div>
-                    <div className="col-4">{data.numTransfers}</div>
+                    <div className="col-4">{data.NumDiagnosis}</div>
                   </div>
                 </div>
 
@@ -137,81 +137,55 @@ const DetailLos = () => {
                   </div>
 
                   <div className="row col-4">
-                    <div className="col-6">NumProcs</div>
-                    <div className="col-1" style={{ width: "fit-content" }}>
-                      :
-                    </div>
-                    <div className="col-4">{data.numProcs}</div>
-                  </div>
-
-                  <div className="row col-4">
-                    <div className="col-6">NumRX</div>
-                    <div className="col-1" style={{ width: "fit-content" }}>
-                      :
-                    </div>
-                    <div className="col-4">{data.numRX}</div>
-                  </div>
-                </div>
-
-                <div className="row justify-content-between text-start fw-bold mb-3 w-100">
-                  <div className="row col-4">
-                    <div className="col-6">NumProcEvents</div>
-                    <div className="col-1" style={{ width: "fit-content" }}>
-                      :
-                    </div>
-                    <div className="col-4">{data.numProcEvents}</div>
-                  </div>
-
-                  <div className="row col-4">
-                    <div className="col-6">NumCallouts</div>
-                    <div className="col-1" style={{ width: "fit-content" }}>
-                      :
-                    </div>
-                    <div className="col-4">{data.numCallouts}</div>
-                  </div>
-
-                  <div className="row col-4">
-                    <div className="col-6">NumCPevents</div>
-                    <div className="col-1" style={{ width: "fit-content" }}>
-                      :
-                    </div>
-                    <div className="col-4">{data.numCPevents}</div>
-                  </div>
-                </div>
-
-                <div className="row justify-content-between text-start fw-bold mb-3 w-100">
-                  <div className="row col-4">
                     <div className="col-6">NumNotes</div>
                     <div className="col-1" style={{ width: "fit-content" }}>
                       :
                     </div>
-                    <div className="col-4">{data.numNotes}</div>
+                    <div className="col-4">{data.NumNotes}</div>
                   </div>
 
-                  <div className="row col-4">
-                    <div className="col-6">NumMicroLabs</div>
-                    <div className="col-1" style={{ width: "fit-content" }}>
-                      :
-                    </div>
-                    <div className="col-4">{data.numMicroLabs}</div>
-                  </div>
-
-                  <div className="row col-4">
-                    <div className="col-6">NumDiagnosis</div>
-                    <div className="col-1" style={{ width: "fit-content" }}>
-                      :
-                    </div>
-                    <div className="col-4">{data.numDiagnosis}</div>
-                  </div>
-                </div>
-
-                <div className="row justify-content-between text-start fw-bold mb-3 w-100">
                   <div className="row col-4">
                     <div className="col-6">NumLabs</div>
                     <div className="col-1" style={{ width: "fit-content" }}>
                       :
                     </div>
-                    <div className="col-4">{data.numLabs}</div>
+                    <div className="col-4">{data.NumLabs}</div>
+                  </div>
+                </div>
+
+                <div className="row justify-content-between text-start fw-bold mb-3 w-100">
+                  <div className="row col-4">
+                    <div className="col-6">TotalNumInteract</div>
+                    <div className="col-1" style={{ width: "fit-content" }}>
+                      :
+                    </div>
+                    <div className="col-4">{data.TotalNumInteract}</div>
+                  </div>
+
+                  <div className="row col-4">
+                    <div className="col-6">NumChartEvents</div>
+                    <div className="col-1" style={{ width: "fit-content" }}>
+                      :
+                    </div>
+                    <div className="col-4">{data.NumChartEvents}</div>
+                  </div>
+
+                  <div className="row col-4">
+                    <div className="col-6">NumProcs</div>
+                    <div className="col-1" style={{ width: "fit-content" }}>
+                      :
+                    </div>
+                    <div className="col-4">{data.NumProcs}</div>
+                  </div>
+                </div>
+
+                <div className="row justify-content-between text-start fw-bold mb-3 w-100">
+                  <div className="row col-4">
+                    <div className="col-6">NumMicroLabs</div>
+                    <div className="col-1" style={{ width: "fit-content" }}>
+                      :
+                    </div>
+                    <div className="col-4">{data.NumMicroLabs}</div>
                   </div>
 
                   <div className="row col-4">
@@ -219,15 +193,15 @@ const DetailLos = () => {
                     <div className="col-1" style={{ width: "fit-content" }}>
                       :
                     </div>
-                    <div className="col-4">{data.numInput}</div>
+                    <div className="col-4">{data.NumInput}</div>
                   </div>
 
                   <div className="row col-4">
-                    <div className="col-6">NumCharEvents</div>
+                    <div className="col-6">NumRx</div>
                     <div className="col-1" style={{ width: "fit-content" }}>
                       :
                     </div>
-                    <div className="col-4">{data.numCharEvents}</div>
+                    <div className="col-4">{data.NumRx}</div>
                   </div>
                 </div>
 
@@ -237,7 +211,23 @@ const DetailLos = () => {
                     <div className="col-1" style={{ width: "fit-content" }}>
                       :
                     </div>
-                    <div className="col-4">{data.numOutput}</div>
+                    <div className="col-4">{data.NumOutput}</div>
+                  </div>
+
+                  <div className="row col-4">
+                    <div className="col-6">NumCPTevents</div>
+                    <div className="col-1" style={{ width: "fit-content" }}>
+                      :
+                    </div>
+                    <div className="col-4">{data.NumCPTevents}</div>
+                  </div>
+
+                  <div className="row col-4">
+                    <div className="col-6">NumCallouts</div>
+                    <div className="col-1" style={{ width: "fit-content" }}>
+                      :
+                    </div>
+                    <div className="col-4">{data.NumCallouts}</div>
                   </div>
                 </div>
 

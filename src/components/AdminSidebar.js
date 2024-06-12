@@ -1,9 +1,9 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import Swal from "sweetalert2";
-import { CustomNavLink } from "./CustomNavLink";
+import { CustomNavLink, CustomNavLinkAdmin } from "./CustomNavLink";
 
-export const Sidebar = () => {
+export const AdminSidebar = () => {
   const onLogout = () => {
     Swal.fire({
       title: "Logout?",
@@ -44,13 +44,19 @@ export const Sidebar = () => {
           <ul className="menu mt-4">
             <li className="sidebar-title text-start mt-0">Menu</li>
             <li className="sidebar-item">
-              <CustomNavLink to="/" paths={["/", "/history", "/detail-los/:id", "/predict/:id", "/predict-result", "/add-patient","/edit-patient/:id"]}>
-                <i className="bi bi-grid-fill"></i>
-                <span>Dashboard</span>
+              <CustomNavLink to="/admin" paths={[]}>
+                <i className="bi bi-person-fill"></i>
+                <span>User</span>
               </CustomNavLink>
             </li>
             <li className="sidebar-item">
-              <CustomNavLink to="/rooms" paths={["/rooms"]}>
+              <CustomNavLink to="/approve" paths={["/approve"]}>
+                <i className="bi bi-person-fill-check"></i>
+                <span>Approve User</span>
+              </CustomNavLink>
+            </li>
+            <li className="sidebar-item">
+              <CustomNavLink to="/rooms/admin" paths={[]}>
                 <i className="bi bi-box-fill"></i>
                 <span>Kamar</span>
               </CustomNavLink>
@@ -71,4 +77,4 @@ export const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default AdminSidebar;

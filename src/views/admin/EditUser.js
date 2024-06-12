@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import AppLayout from "../layouts/AppLayout";
+import AppLayout from "../../layouts/AppLayout";
 import { NavLink, redirect, useParams } from "react-router-dom";
 import axios from "axios";
-import { baseURL } from "../routes/Config";
+import { baseURL } from "../../routes/Config";
 import Swal from "sweetalert2";
-import TokenExpired from "../components/TokenExpired";
+import TokenExpired from "../../components/TokenExpired";
 
-const EditPatient = () => {
+const EditUser = () => {
   const [data, setData] = useState({});
   const token = sessionStorage.getItem("token");
 
@@ -16,7 +16,7 @@ const EditPatient = () => {
 
   useEffect(() => {
     axios
-      .get(`${baseURL}/api/patients/${id}`, {
+      .get(`${baseURL}/api/users/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -44,8 +44,8 @@ const EditPatient = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     Swal.fire({
-      title: "Update Data Pasien?",
-      text: "Apakah anda yakin ingin mengedit data pasien?",
+      title: "Update Data User?",
+      text: "Apakah anda yakin ingin mengedit data user?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: "Ya, Edit!",
@@ -54,14 +54,16 @@ const EditPatient = () => {
       if (result.isConfirmed) {
         axios
           .put(
-            `${baseURL}/api/patients/update/${id}`,
+            `${baseURL}/api/users/update/${id}`,
             {
               name: data.name,
-              nik: data.nik,
+              nip: data.nip,
               gender: data.gender ?? "Laki-Laki",
-              birthPlace: data.birthPlace,
-              birthDate: data.birthDate,
               address: data.address,
+              phone: data.phone,
+              role: data.role,
+              password: data.password,
+              confirmPassword: data.confirmPassword,
             },
             {
               headers: {
@@ -72,22 +74,20 @@ const EditPatient = () => {
           .then((res) => {
             Swal.fire(
               "Berhasil!",
-              "Data pasien berhasil diedit.",
+              "Data user berhasil diedit.",
               "success"
             ).then(() => {
-              window.location.href = `/`;
+              window.location.href = `/admin`;
             });
           })
           .catch((err) => {
             console.log(err);
             if (err.response.status === 401) {
-              window.location.reload();
+              TokenExpired();
             }
-            Swal.fire("Gagal!", "Data pasien gagal diedit.", "error").then(
-              () => {
-                window.location.reload();
-              }
-            );
+            Swal.fire("Gagal!", "Data user gagal diedit.", "error").then(() => {
+              window.location.reload();
+            });
           });
       }
     });
@@ -99,7 +99,7 @@ const EditPatient = () => {
         <div className="page-title">
           <div className="row">
             <div className="col-12 col-md-6 order-md-1 text-start">
-              <h3>Edit Data Pasien</h3>
+              <h3>Edit Data User</h3>
             </div>
           </div>
         </div>
@@ -110,7 +110,7 @@ const EditPatient = () => {
             <form onSubmit={handleSubmit}>
               <div className="row mb-4">
                 <div className="form-group col-md-6 col-12">
-                  <label className="form-label">Nama Pasien</label>
+                  <label className="form-label">Nama User</label>
                   <input
                     type="text"
                     className="form-control"
@@ -123,15 +123,15 @@ const EditPatient = () => {
                   />
                 </div>
                 <div className="form-group col-md-6 col-12">
-                  <label className="form-label">Tempat Lahir</label>
+                  <label className="form-label">Alamat</label>
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="Tempat Lahir"
-                    aria-label="Birth_Place"
-                    name="birthPlace"
+                    placeholder="Alamat"
+                    aria-label="Address"
+                    name="address"
                     onChange={handleChange}
-                    value={data.birthPlace}
+                    value={data.address}
                     required
                   />
                 </div>
@@ -139,27 +139,27 @@ const EditPatient = () => {
 
               <div className="row mb-4">
                 <div className="form-group col-md-6 col-12">
-                  <label className="form-label">NIK</label>
+                  <label className="form-label">NIP</label>
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="NIK"
-                    aria-label="NIK"
-                    name="nik"
+                    placeholder="NIP"
+                    aria-label="NIP"
+                    name="nip"
                     onChange={handleChange}
-                    value={data.nik}
+                    value={data.nip}
                     required
                   />
                 </div>
                 <div className="form-group col-md-6 col-12">
-                  <label className="form-label">Tanggal Lahir</label>
+                  <label className="form-label">Nomor HP</label>
                   <input
-                    type="date"
+                    type="text"
                     className="form-control"
-                    aria-label="Birth_Date"
-                    name="birthDate"
+                    aria-label="Phone"
+                    name="phone"
                     onChange={handleChange}
-                    value={data.birthDate}
+                    value={data.phone}
                     required
                   />
                 </div>
@@ -180,16 +180,43 @@ const EditPatient = () => {
                   </select>
                 </div>
                 <div className="form-group col-md-6 col-12">
-                  <label className="form-label">Alamat</label>
+                  <label className="form-label">Password Baru</label>
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="Alamat"
-                    aria-label="Tempat_Lahir"
-                    name="address"
+                    placeholder="Password Baru"
+                    aria-label="Password"
+                    name="password"
                     onChange={handleChange}
-                    value={data.address}
+                    value={data.password}
+                  />
+                </div>
+              </div>
+
+              <div className="row mb-4">
+                <div className="form-group col-md-6 col-12">
+                  <label className="form-label">Role</label>
+                  <select
+                    name="role"
+                    className="form-select"
+                    onChange={handleChange}
+                    value={data.role}
                     required
+                  >
+                    <option value="admin">admin</option>
+                    <option value="user">user</option>
+                  </select>
+                </div>
+                <div className="form-group col-md-6 col-12">
+                  <label className="form-label">Konfirmasi Password Baru</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Konfirmasi Password Baru"
+                    aria-label="Confirm_Password"
+                    name="confirmPassword"
+                    onChange={handleChange}
+                    value={data.confirmPassword}
                   />
                 </div>
               </div>
@@ -212,4 +239,4 @@ const EditPatient = () => {
   );
 };
 
-export default EditPatient;
+export default EditUser;

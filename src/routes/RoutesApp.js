@@ -18,6 +18,16 @@ import History from "../views/History";
 import DetailLos from "../views/DetailLos";
 import Rooms from "../views/Rooms";
 
+import AdminDashboard from "../views/admin/Dashboard";
+import EditUser from "../views/admin/EditUser";
+import ApproveUser from "../views/admin/ApproveUser";
+import AdminRooms from "../views/admin/AdminRooms";
+import AdminBeds from "../views/admin/AdminBeds";
+import EditBed from "../views/admin/EditBed";
+import AddBed from "../views/admin/AddBed";
+import AddRoom from "../views/admin/AddRoom";
+import Register from "../views/auth/Register";
+
 const RoutesApp = () => {
   const [data, setData] = useState({
     role: "",
@@ -44,7 +54,6 @@ const RoutesApp = () => {
     }
   }, [token]);
 
-
   if (data.loading) {
     return <div>Loading...</div>; // Render loading state
   }
@@ -60,15 +69,26 @@ const RoutesApp = () => {
   return (
     <Router>
       <Routes>
-        {getProtectedRoute("/", <Dashboard />, ["admin"])}
-        {getProtectedRoute("/add-patient", <AddPatient />, ["admin"])}
-        {getProtectedRoute("/edit-patient/:id", <EditPatient />, ["admin"])}
-        {getProtectedRoute("/predict/:id", <PredictLos />, ["admin"])}
-        {getProtectedRoute("/predict-result", <PredictResult />, ["admin"])}
-        {getProtectedRoute("/history/:id", <History />, ["admin"])}
-        {getProtectedRoute("/detail-los/:id", <DetailLos />, ["admin"])}
-        {getProtectedRoute("/rooms", <Rooms />, ["admin"])}
+        {getProtectedRoute("/", <Dashboard />, ["user"])}
+        {getProtectedRoute("/add-patient", <AddPatient />, ["user"])}
+        {getProtectedRoute("/edit-patient/:id", <EditPatient />, ["user"])}
+        {getProtectedRoute("/predict/:id", <PredictLos />, ["user"])}
+        {getProtectedRoute("/predict-result", <PredictResult />, ["user"])}
+        {getProtectedRoute("/history/:id", <History />, ["user"])}
+        {getProtectedRoute("/detail-los/:id", <DetailLos />, ["user"])}
+        {getProtectedRoute("/rooms", <Rooms />, ["user"])}
+
+        {getProtectedRoute("/admin", <AdminDashboard />, ["admin"])}
+        {getProtectedRoute("/admin/edit-user/:id", <EditUser />, ["admin"])}
+        {getProtectedRoute("/approve", <ApproveUser />, ["admin"])}
+        {getProtectedRoute("/rooms/admin", <AdminRooms />, ["admin"])}
+        {getProtectedRoute("/rooms/admin/add-room", <AddRoom />, ["admin"])}
+        {getProtectedRoute("/rooms/admin/:room", <AdminBeds />, ["admin"])}
+        {getProtectedRoute("/rooms/admin/add-bed/:room", <AddBed />, ["admin"])}
+        {getProtectedRoute("/rooms/admin/beds/:id", <EditBed />, ["admin"])}
+
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </Router>
   );

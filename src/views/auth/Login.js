@@ -26,11 +26,19 @@ const Login = () => {
       .then((res) => {
         const { data } = res;
         sessionStorage.setItem("token", data.accessToken);
-        window.location.href = "/";
+        if (data.role === "admin") {
+          window.location.href = "/admin";
+        } else {
+          window.location.href = "/";
+        }
       })
       .catch((err) => {
         console.log(err);
-        setError(err.response?.data.message || "Something went wrong!");
+        if (err.response?.status === 500) {
+          setError("Something went wrong!");
+        } else {
+          setError(err.response?.data.message || "Something went wrong!");
+        }
       });
   };
 
@@ -55,7 +63,7 @@ const Login = () => {
           </div>
 
           <div className="form">
-            <form className="mt-5">
+            <form className="mt-4">
               {error ? <LoginError message={error} /> : ""}
               <div className="form-group">
                 <label className="form-label fw-medium">Email</label>
@@ -89,6 +97,9 @@ const Login = () => {
                 >
                   Login
                 </button>
+                <p className="mt-2">
+                  Belum punya akun? <NavLink to="/register" style={{textDecoration: 'none'}}>Buat akun</NavLink>
+                </p>
               </div>
             </form>
           </div>

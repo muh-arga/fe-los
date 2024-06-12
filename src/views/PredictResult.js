@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import AppLayout from "../layouts/AppLayout";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
-import { baseURL } from "../routes/Config";
+import { baseURL, pythonURL } from "../routes/Config";
 import Swal from "sweetalert2";
 import TokenExpired from "../components/TokenExpired";
 
@@ -14,13 +14,47 @@ const PredictResult = () => {
   const [data, setData] = useState({});
   const [rooms, setRooms] = useState([]);
   const [beds, setBeds] = useState([]);
+  const [availableBeds, setAvailableBeds] = useState([]);
 
   const [los, setLos] = useState(0);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const estimates = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-    setLos(estimates[Math.floor(Math.random() * estimates.length)]);
+    axios
+      .post(
+        `${baseURL}/api/predict`,
+        labs,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        setLos(Math.ceil(res.data.data.prediction[0]));
+      })
+      .catch((err) => {
+        console.log(err);
+        if (err.response.status === 401) {
+          TokenExpired();
+        }
+      });
+
+    axios
+      .get(`${baseURL}/api/beds?status=0`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setAvailableBeds(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        if (err.response.status === 401) {
+          TokenExpired();
+        }
+      });
 
     axios
       .get(`${baseURL}/api/rooms?status=0`, {
@@ -34,8 +68,8 @@ const PredictResult = () => {
       })
       .catch((err) => {
         console.log(err);
-        if(err.response.status === 401) {
-          TokenExpired()
+        if (err.response.status === 401) {
+          TokenExpired();
         }
         setLoading(false);
       });
@@ -53,8 +87,8 @@ const PredictResult = () => {
       })
       .catch((err) => {
         console.log(err);
-        if(err.response.status === 401) {
-          TokenExpired()
+        if (err.response.status === 401) {
+          TokenExpired();
         }
       });
   };
@@ -101,7 +135,7 @@ const PredictResult = () => {
           })
           .catch((err) => {
             console.log(err);
-            if(err.response.status === 401) {
+            if (err.response.status === 401) {
               window.location.reload();
             }
             Swal.fire("Gagal!", "Gagal menyimpan data.", "error").then(() => {
@@ -154,7 +188,18 @@ const PredictResult = () => {
                 <div className="col-1" style={{ width: "fit-content" }}>
                   :
                 </div>
-                <div className="col-5">R1.2, R2.4, R4.1</div>
+                <div className="col-5">
+                  {availableBeds.length > 0 ? (
+                    availableBeds.map((bed, index) => (
+                      <span key={index} className="text-success">
+                        {bed.room + "." + bed.bed}
+                        {index === availableBeds.length - 1 ? "" : ", "}
+                      </span>
+                    ))
+                  ) : (
+                    <span className="text-danger">Tidak ada tempat tidur</span>
+                  )}
+                </div>
               </div>
               <div className="row text-start fw-bold mb-3">
                 <div className="col-6">Pilih Ruangan</div>
